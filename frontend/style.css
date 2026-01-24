@@ -39,7 +39,7 @@ body {
     gap: 15px; /* space between back button & logo */
 }
 
-.backbutton{
+.back-btn{
     border: solid #d62828 2px;
     background: linear-gradient(to right, #d62828, #f77f00);
     padding: 5px 15px;
@@ -48,7 +48,7 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-.backbutton:hover{
+.back-btn:hover{
     transform: scale(1.10);
     transition: transform 0.3s;
     background: #ffffff;
@@ -285,7 +285,6 @@ footer {
                     request section
 ==================================================*/
 
-/* ================= Request Section ================= */
 .request-section {
     min-height: 85vh;
     display: flex;
@@ -362,7 +361,9 @@ footer {
 }
 
 
-/* ================= Contact Section ================= */
+/* ============================================
+                Contact Section 
+============================================== */
 .contact-section {
     padding: 80px 20px;
 }
@@ -454,10 +455,339 @@ footer {
 
 }
 
-
 /* ================= Responsive ================= */
 @media (max-width: 768px) {
     .contact-container {
         flex-direction: column;
     }
+}
+
+
+/*===============================================
+                About page
+================================================= */
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #d62828, #9b1c1c);
+    color: #fff;
+    text-align: center;
+    padding: 35px 25px;
+}
+
+.header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* Main Container */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Sections */
+.section {
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.section h2 {
+    color: #d62828;
+    margin-bottom: 12px;
+    font-size: 22px;
+}
+
+.section p {
+    font-size: 15px;
+    color: #555;
+}
+
+.section ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.section ul li {
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+/* Footer */
+.footer {
+    background-color: #1f1f1f;
+    color: #bbb;
+    text-align: center;
+    padding: 15px 10px;
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+
+/*=============================================
+            notification section
+=============================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f6f8;
+    color: #333;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #d62828, #9b1c1c);
+    color: #fff;
+    padding: 40px 20px;
+}
+
+.header-content {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 32px;
+}
+
+.subtitle {
+    max-width: 900px;
+    margin: 10px auto 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Notification Count */
+.count {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff9c;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Notification Card */
+.notification {
+    background: #fff;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    position: relative;
+    border-left: 6px solid #ccc;
+    transition: transform 0.2s ease;
+}
+
+.notification:hover {
+    transform: translateY(-3px);
+}
+
+/* Types */
+.notification.urgent {
+    border-left-color: #d62828;
+}
+
+.notification.match {
+    border-left-color: #2a9d8f;
+}
+
+.notification.info {
+    border-left-color: #457b9d;
+}
+
+/* Tag */
+.tag {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #eee;
+    color: #555;
+}
+
+.notification.urgent .tag {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.notification.match .tag {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.notification.info .tag {
+    background: #e0ecff;
+    color: #1d4ed8;
+}
+
+/* Content */
+.notification h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.notification p {
+    font-size: 14.5px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.time {
+    display: block;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #888;
+}
+
+/* Footer */
+.footer {
+    background: #1f1f1f;
+    color: #bbb;
+    text-align: center;
+    padding: 14px;
+    font-size: 13px;
+}
+
+
+/* ====================================
+                auth page
+=======================================*/
+
+/* Container */
+.auth-container {
+    width: 100%;
+    padding: 20px;
+}
+
+/* Card */
+.auth-card {
+    max-width: 420px;
+    height: 450px;
+    margin: auto;
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.auth-card2{
+    max-width: 420px;
+    height: 700px;
+    margin: auto;
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.auth-card h1 {
+    font-size: 28px;
+    color: #d62828;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Form */
+.form-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #d62828;
+}
+
+/* Button */
+.auth-btn {
+    width: 100%;
+    padding: 11px;
+    background: #d62828;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.auth-btn:hover {
+    background: #b81f1f;
+}
+
+/* Switch text */
+.auth-switch {
+    margin-top: 18px;
+    font-size: 14px;
+    color: #555;
+}
+
+.auth-switch a {
+    color: #d62828;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
 }
