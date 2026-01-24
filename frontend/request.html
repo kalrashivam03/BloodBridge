@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request-BloodBridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="backbutton">← Back</button>
+
+            <div class="logo">
+                <img src="Logo.png.png" alt="BloodBridge Logo">
+                <span class="blood">Blood</span><span class="bridge">Bridge</span>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="notification">
+                <a href="notification.html" class="notification-link">
+                    🔔
+                    <span class="badge" id="notificationCount"></span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="signin.html">Login</a></li>
+                <li><a href="About.html">About Us</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- ================= Request Section ================= -->
+    <section class="request-section">
+        <div class="request-box">
+            <h1>Request Blood</h1>
+            <p>
+                Submit a blood request and nearby donors will be notified instantly.
+            </p>
+
+            <form>
+                <div class="form-group">
+                    <label>Patient Name</label>
+                    <input type="text" placeholder="Enter patient name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Blood Group</label>
+                    <select required>
+                        <option value="">Select blood group</option>
+                        <option>A+</option>
+                        <option>A-</option>
+                        <option>B+</option>
+                        <option>B-</option>
+                        <option>AB+</option>
+                        <option>AB-</option>
+                        <option>O+</option>
+                        <option>O-</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Units Required</label>
+                    <input type="number" min="1" placeholder="e.g. 2" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Hospital / Location</label>
+                    <input type="text" placeholder="Hospital name or address" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="tel" placeholder="10-digit mobile number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Urgency Level</label>
+                    <select required>
+                        <option value="">Select urgency</option>
+                        <option>Critical</option>
+                        <option>High</option>
+                        <option>Normal</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="requestbtn">Send Request</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ================= Footer ================= -->
+    <footer>
+        <p>© 2026 BloodBridge. Saving lives through technology.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
