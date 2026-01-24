@@ -8,65 +8,38 @@
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- ================= Header ================= -->
     <header class="header">
-        <button class="back-btn" onclick="goBack()">← Back</button>
-        <div class="header-content">
-            <h1>Notifications</h1>
-            <div class="count">
-                <span class="dot"></span>
-                <span id="count">3</span> New
+        <div class="left-header">
+            <button type="button" class="back-btn2" onclick="goBack()">← Back</button>
+            <div class="header-content">
+                <h1>Notifications</h1>
+                <div class="count">
+                    <span class="dot"></span>
+                    <span class="notification-count">0</span> New
+                </div>
             </div>
         </div>
-        <p class="subtitle">Live updates for blood requests and donor matches</p>
+        <p class="subtitle">
+            Live updates for blood requests and donor matches
+        </p>
     </header>
 
-    <!-- Notifications -->
+    <!-- ================= Notifications ================= -->
     <main class="container">
 
-        <!-- JS will render notifications here -->
-        <div id="notificationContainer">
-
-            <!-- Emergency Notification -->
-            <div class="notification urgent">
-                <span class="tag">Emergency</span>
-                <h3>Urgent Blood Required</h3>
-                <p>
-                    <strong>Blood Group:</strong> O+ <br>
-                    <strong>Location:</strong> City Hospital, Moradabad <br>
-                    <strong>Units:</strong> 2
-                </p>
-                <span class="time">Just now</span>
-            </div>
-
-            <!-- Match Notification -->
-            <div class="notification match">
-                <span class="tag">Matched</span>
-                <h3>Donor Matched</h3>
-                <p>
-                    A suitable donor has been matched for your A− blood request.
-                </p>
-                <span class="time">5 minutes ago</span>
-            </div>
-
-            <!-- Info Notification -->
-            <div class="notification info">
-                <span class="tag">Update</span>
-                <h3>Request Fulfilled</h3>
-                <p>
-                    Your blood request has been successfully fulfilled.
-                </p>
-                <span class="time">1 hour ago</span>
-            </div>
-
+        <!-- JS will inject notifications here -->
+        <div class="notification-container">
+            <!-- Dynamic notifications -->
         </div>
+
     </main>
 
-    <!-- Footer -->
+    <!-- ================= Footer ================= -->
     <footer class="footer">
         <p>© 2026 BloodBridge | Notification Center</p>
     </footer>
-    <script src="js/main.js"></script>
-    <script src="js/notification.js"></script>
+
+    <script src="main.js"></script>
 </body>
 </html>

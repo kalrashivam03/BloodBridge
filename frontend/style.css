@@ -20,7 +20,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
+    padding: 10px 40px;
     background-color: #ffffff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
@@ -44,7 +44,7 @@ body {
     background: linear-gradient(to right, #d62828, #f77f00);
     padding: 5px 15px;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 22px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -83,28 +83,35 @@ body {
 
 .notification {
     position: relative;
+    display: inline-block;
 }
 
 .notification-link {
     text-decoration: none;
     font-size: 22px;
     cursor: pointer;
-    display: inline-block;
     position: relative;
 }
 
-.badge {
+/* 🔔 Badge alignment fix */
+.notification .badge {
     position: absolute;
     top: -6px;
-    right: -8px;
-    background-color: #d62828;
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 6px;
+    right: -6px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    background: #d62828;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
     border-radius: 50%;
-    display: none; /* hidden by default */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
+
 
 
 .nav-links {
@@ -116,7 +123,7 @@ body {
 .nav-links li {
     border: solid transparent 2px;
     background: linear-gradient(to right, #d62828, #f77f00);
-    padding: 5px 15px;
+    padding: 10px 15px;
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
 }
@@ -315,18 +322,17 @@ footer {
 }
 
 /* ================= Form ================= */
-.form-group {
+.bloodgroup, .urgency-level, .patient-name, .patient-number, .patient-units, .patient-location {
     margin-bottom: 18px;
 }
 
-.form-group label {
+.bloodgroup label, .urgency-level label, .patient-name label, .patient-number label, .patient-units label, .patient-location label {
     display: block;
     margin-bottom: 6px;
     font-weight: 600;
 }
 
-.form-group input,
-.form-group select {
+.patient-location input, .patient-name input, .patient-number input, .patient-units input, .urgency-level select, .bloodgroup select {
     width: 100%;
     padding: 10px 12px;
     border-radius: 6px;
@@ -334,8 +340,7 @@ footer {
     font-size: 14px;
 }
 
-.form-group input:focus,
-.form-group select:focus {
+.patient-name input:focus, .patient-location input:focus, .patient-units input:focus, .patient-number input:focus, .urgency-level select:focus, .bloodgroup select:focus {
     outline: none;
     border-color: #d62828;
 }
@@ -409,27 +414,21 @@ footer {
 }
 
 /* ================= Form ================= */
-.form-group {
+.contact-name, .contact-email, .contact-message {
     margin-bottom: 18px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-}
-
-.form-group input,
-.form-group textarea {
+.contact-name input, .contact-email input, .contact-message textarea {
     width: 100%;
     padding: 10px 12px;
     border-radius: 6px;
     border: 1px solid #ccc;
     font-size: 14px;
+    box-sizing: border-box;
+    display: block;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.contact-name input:focus, .contact-email input:focus, .contact-message textarea:focus {
     outline: none;
     border-color: #d62828;
 }
@@ -462,13 +461,12 @@ footer {
     }
 }
 
-
 /*===============================================
                 About page
 ================================================= */
 
 /* Header */
-.header {
+.about-header {
     background: linear-gradient(135deg, #d62828, #9b1c1c);
     color: #fff;
     text-align: center;
@@ -486,7 +484,7 @@ footer {
 }
 
 /* Main Container */
-.container {
+.about-container {
     max-width: 900px;
     margin: 40px auto;
     padding: 0 20px;
@@ -537,23 +535,12 @@ footer {
             notification section
 =============================================== */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #f5f6f8;
-    color: #333;
-}
-
-/* Header */
+/* ================= Header ================= */
 .header {
     background: linear-gradient(135deg, #d62828, #9b1c1c);
-    color: #fff;
-    padding: 40px 20px;
+    padding: 35px 20px 30px;
+    display: flex;
+    align-items: center;
 }
 
 .header-content {
@@ -562,27 +549,59 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
+.left-header{
+    display: flex;
+    gap:30px;
+    margin-left: 10px;
+}
 .header h1 {
-    font-size: 32px;
+    font-size: 30px;
+    margin: 0;
 }
 
+.header p{
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 25px;
+    margin-left: 580px;
+}
 .subtitle {
     max-width: 900px;
-    margin: 10px auto 0;
-    font-size: 14px;
+    margin: 8px auto 0;
+    font-size: 20px;
     opacity: 0.9;
+    justify-content: right;
 }
 
-/* Notification Count */
+
+.back-btn2 {
+    border: solid #ffffff 2px;
+    background: #f68686;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+.back-btn2:hover {
+    transform: scale(1.10);
+    transition: 0.3s;
+}
+
+/* ================= Notification Count ================= */
 .count {
     display: flex;
     align-items: center;
+    gap: 8px;
     background: rgba(255, 255, 255, 0.15);
     padding: 6px 14px;
     border-radius: 20px;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .dot {
@@ -590,17 +609,18 @@ body {
     height: 8px;
     background: #00ff9c;
     border-radius: 50%;
-    margin-right: 8px;
 }
 
-/* Container */
+/* ================= Container ================= */
 .container {
     max-width: 900px;
     margin: 40px auto;
-    padding: 0 20px;
+    padding: 10px 20px;
+    display: flex;
+    gap: 20px;
 }
 
-/* Notification Card */
+/* ================= Notification Card ================= */
 .notification {
     background: #fff;
     padding: 22px;
@@ -609,14 +629,15 @@ body {
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
     position: relative;
     border-left: 6px solid #ccc;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .notification:hover {
     transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
 }
 
-/* Types */
+/* ================= Notification Types ================= */
 .notification.urgent {
     border-left-color: #d62828;
 }
@@ -629,7 +650,7 @@ body {
     border-left-color: #457b9d;
 }
 
-/* Tag */
+/* ================= Tag ================= */
 .tag {
     position: absolute;
     top: 18px;
@@ -656,7 +677,7 @@ body {
     color: #1d4ed8;
 }
 
-/* Content */
+/* ================= Content ================= */
 .notification h3 {
     margin-bottom: 10px;
     font-size: 18px;
@@ -665,7 +686,7 @@ body {
 .notification p {
     font-size: 14.5px;
     color: #555;
-    line-height: 1.5;
+    line-height: 1.55;
 }
 
 .time {
@@ -675,15 +696,22 @@ body {
     color: #888;
 }
 
-/* Footer */
-.footer {
-    background: #1f1f1f;
-    color: #bbb;
+/* ================= Empty State ================= */
+.notification.empty {
     text-align: center;
-    padding: 14px;
-    font-size: 13px;
+    padding: 40px 20px;
+    border-left: none;
 }
 
+.notification.empty h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.notification.empty p {
+    font-size: 14px;
+    color: #777;
+}
 
 /* ====================================
                 auth page
@@ -731,20 +759,19 @@ body {
 }
 
 /* Form */
-.form-group {
+.password, .confirmpassword, .name, .email, .user-role {
     text-align: left;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
 
-.form-group label {
+.password label, .confirmpassword label, .name label, .email label, .user-role label {
     display: block;
     font-size: 13px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     color: #444;
 }
 
-.form-group input,
-.form-group select {
+.password input, .confirmpassword input, .name input, .email input, .user-role input, .user-role select {
     width: 100%;
     padding: 10px 12px;
     border-radius: 8px;
@@ -752,8 +779,7 @@ body {
     font-size: 14px;
 }
 
-.form-group input:focus,
-.form-group select:focus {
+.password input:focus, .confirmpassword input:focus, .name input:focus, .email input:focus, .user-role input:focus, .user-role select:focus {
     outline: none;
     border-color: #d62828;
 }
@@ -791,3 +817,119 @@ body {
 .auth-switch a:hover {
     text-decoration: underline;
 }
+
+.popup-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.popup-box {
+    background: #fff;
+    padding: 25px;
+    width: 90%;
+    max-width: 350px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup-box h3 {
+    margin-bottom: 10px;
+    color: #d62828;
+}
+
+.popup-box p {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.popup-btn {
+    padding: 8px 18px;
+    border: none;
+    background: #d62828;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+/* ==================================
+            donor section
+=====================================*/
+
+.donor-section {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.donor-card {
+    background: #ffffff;
+    padding: 35px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.donor-card h1 {
+    text-align: center;
+    color: #d62828;
+    margin-bottom: 10px;
+}
+
+.donor-subtitle {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+/* Form */
+.donor-form > div {
+    margin-bottom: 18px;
+}
+
+.donor-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.donor-form input,
+.donor-form select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.donor-form input:focus,
+.donor-form select:focus {
+    outline: none;
+    border-color: #d62828;
+}
+
+/* Button */
+.donor-btn {
+    width: 100%;
+    padding: 12px;
+    background: #d62828;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.donor-btn:hover {
+    background: #b81f1f;
+}
+
+
+
