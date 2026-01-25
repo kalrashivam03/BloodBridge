@@ -614,6 +614,7 @@ footer {
 /* ================= Container ================= */
 .container {
     max-width: 900px;
+    height: 450px;
     margin: 40px auto;
     padding: 10px 20px;
     display: flex;
@@ -721,6 +722,7 @@ footer {
 .auth-container {
     width: 100%;
     padding: 20px;
+    /* margin-top: 100px; */
 }
 
 /* Card */
@@ -733,6 +735,7 @@ footer {
     border-radius: 14px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
     text-align: center;
+    margin-top: 100px;
 }
 
 .auth-card2{
@@ -744,12 +747,14 @@ footer {
     border-radius: 14px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
     text-align: center;
+    margin-top: 15px;
 }
 
-.auth-card h1 {
-    font-size: 28px;
+.auth-card h1, .auth-card2 {
+    font-size: 20px;
     color: #d62828;
     margin-bottom: 6px;
+    margin-top: 10px;
 }
 
 .subtitle {

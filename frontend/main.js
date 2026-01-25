@@ -1,5 +1,5 @@
 /* ======================================================
-   BloodBridge - main.js (Backend Connected)
+   BloodBridge - main.js (Stable, Fixed, Complete)
 ====================================================== */
 
 /* =========================
@@ -8,7 +8,7 @@
 const API_BASE_URL = "http://localhost:5000/api";
 
 /* =========================
-   POPUP ERROR SYSTEM
+   POPUP SYSTEM
 ========================= */
 function showPopup(type, message, callback) {
     let popup = document.querySelector(".popup-overlay");
@@ -30,15 +30,10 @@ function showPopup(type, message, callback) {
     const msg = popup.querySelector(".popup-message");
     const btn = popup.querySelector(".popup-btn");
 
-    if (type === "success") {
-        title.textContent = "Success";
-        title.style.color = "#2e7d32";
-    } else {
-        title.textContent = "Error";
-        title.style.color = "#d62828";
-    }
-
+    title.textContent = type === "success" ? "Success" : "Error";
+    title.style.color = type === "success" ? "#2e7d32" : "#d62828";
     msg.textContent = message;
+
     popup.style.display = "flex";
 
     btn.onclick = () => {
@@ -59,13 +54,11 @@ function getFormData(form) {
 }
 
 function showLoader(form) {
-    const loader = form.querySelector(".loader");
-    if (loader) loader.style.display = "block";
+    form.querySelector(".loader")?.style.setProperty("display", "block");
 }
 
 function hideLoader(form) {
-    const loader = form.querySelector(".loader");
-    if (loader) loader.style.display = "none";
+    form.querySelector(".loader")?.style.setProperty("display", "none");
 }
 
 /* =========================
@@ -76,53 +69,6 @@ const AppState = {
     userRole: null
 };
 
-/* =========================
-   SIGN IN
-========================= */
-const signinForm = document.querySelector(".signin-form");
-
-if (signinForm) {
-    signinForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const data = getFormData(signinForm);
-
-        if (!data.email || !data.password) {
-            showPopup("error", "Please fill in all required fields.");
-            return;
-        }
-
-        showLoader(signinForm);
-
-        try {
-            const res = await fetch(`${API_BASE_URL}/auth/signin`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            });
-
-            const result = await res.json();
-            hideLoader(signinForm);
-
-            if (!res.ok) {
-                showPopup("error", result.message || "Login failed");
-                return;
-            }
-
-            localStorage.setItem("token", result.token);
-            AppState.isLoggedIn = true;
-            AppState.userRole = result.user?.role || null;
-
-            showPopup("success", "Sign in successful!", () => {
-                window.location.href = "Home.html";
-            });
-
-        } catch (err) {
-            hideLoader(signinForm);
-            showPopup("error", "Server not reachable. Try again.");
-        }
-    });
-}
 
 /* =========================
    SIGN UP
@@ -155,7 +101,9 @@ if (signupForm) {
         try {
             const res = await fetch(`${API_BASE_URL}/auth/signup`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
                     name: data.name,
                     email: data.email,
@@ -176,9 +124,57 @@ if (signupForm) {
                 window.location.href = "signin.html";
             });
 
-        } catch (err) {
+        } catch (error) {
             hideLoader(signupForm);
             showPopup("error", "Server not reachable. Try again.");
+        }
+    });
+}
+
+
+/* =========================
+   SIGN IN
+========================= */
+const signinForm = document.querySelector(".signin-form");
+
+if (signinForm) {
+    signinForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = getFormData(signinForm);
+
+        if (!data.email || !data.password) {
+            showPopup("error", "Please fill all fields");
+            return;
+        }
+
+        showLoader(signinForm);
+
+        try {
+            const res = await fetch(`${API_BASE_URL}/auth/signin`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+            hideLoader(signinForm);
+
+            if (!res.ok) {
+                showPopup("error", result.message || "Login failed");
+                return;
+            }
+
+            localStorage.setItem("token", result.token);
+            AppState.isLoggedIn = true;
+            AppState.userRole = result.user?.role || null;
+
+            showPopup("success", "Login successful", () => {
+                window.location.href = "Home.html";
+            });
+
+        } catch {
+            hideLoader(signinForm);
+            showPopup("error", "Server not reachable");
         }
     });
 }
@@ -191,22 +187,21 @@ function updateNavbar() {
         link.style.display = AppState.isLoggedIn ? "none" : "inline-block";
     });
 
-    const logoutBtn = document.querySelector(".logout-btn");
-    if (logoutBtn) {
-        logoutBtn.style.display = AppState.isLoggedIn ? "inline-block" : "none";
-    }
+    document.querySelector(".logout-btn")?.style.setProperty(
+        "display",
+        AppState.isLoggedIn ? "inline-block" : "none"
+    );
 }
 
 function logoutUser() {
     localStorage.removeItem("token");
     AppState.isLoggedIn = false;
     AppState.userRole = null;
-    updateNavbar();
     window.location.href = "signin.html";
 }
 
 /* =========================
-   BACK BUTTON
+   🔙 BACK BUTTON LOGIC (RESTORED)
 ========================= */
 function goBack() {
     if (window.history.length > 1) {
@@ -217,15 +212,14 @@ function goBack() {
 }
 
 /* =========================
-   NOTIFICATIONS (STATIC FOR NOW)
+   NOTIFICATIONS
 ========================= */
-
 async function fetchNotifications() {
     const token = localStorage.getItem("token");
     if (!token) return;
 
     try {
-        const res = await fetch("http://localhost:5000/api/notifications", {
+        const res = await fetch(`${API_BASE_URL}/notifications`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -234,19 +228,18 @@ async function fetchNotifications() {
         const data = await res.json();
 
         if (!res.ok) {
-            console.error("Failed to fetch notifications");
+            console.error("Notification fetch failed");
             return;
         }
 
         renderNotifications(data.notifications || []);
 
-    } catch (error) {
-        console.error("Notification fetch error:", error.message);
+    } catch (err) {
+        console.error("Notification error:", err.message);
     }
 }
 
-
-function renderNotifications(notifications) {
+function renderNotifications(notifications = []) {
     const container = document.querySelector(".notification-container");
     const countEl = document.querySelector(".notification-count");
 
@@ -276,13 +269,9 @@ function renderNotifications(notifications) {
             <span class="time">${new Date(n.createdAt).toLocaleString()}</span>
         `;
 
-        // Mark as read when clicked
-        div.addEventListener("click", () => markAsRead(n._id));
-
         container.appendChild(div);
     });
 }
-
 
 /* =========================
    INIT
@@ -290,7 +279,8 @@ function renderNotifications(notifications) {
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
     AppState.isLoggedIn = !!token;
+
     updateNavbar();
-    renderNotifications();
-    fetchNotifications();
+    renderNotifications([]);   // safe default
+    fetchNotifications();      // backend fetch
 });

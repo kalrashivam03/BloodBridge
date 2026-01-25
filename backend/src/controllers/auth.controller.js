@@ -86,7 +86,7 @@ export const signin = async (req, res) => {
         const normalizedEmail = email.toLowerCase();
 
         // 3️⃣ Find user
-        const user = await User.findOne({ email: normalizedEmail });
+        const user = await User.findOne({ email: normalizedEmail }).select("+password");
         if (!user) {
             return res.status(401).json({
                 success: false,

@@ -5,7 +5,11 @@ import mongoose from "mongoose";
 ========================= */
 const donorSchema = new mongoose.Schema(
     {
-        userId: donor.user,
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",   // or "Donor" only if referencing another donor
+            required: true
+        },
 
         bloodGroup: {
             type: String,

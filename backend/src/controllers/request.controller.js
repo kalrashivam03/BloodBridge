@@ -154,3 +154,31 @@ export const getRequestById = async (req, res) => {
         });
     }
 };
+
+export const updateRequestStatus = async (req, res) => {
+  try {
+    const { requestId } = req.params;
+    const { status } = req.body;
+
+    const request = await Request.findByIdAndUpdate(
+      requestId,
+      { status },
+      { new: true }
+    );
+
+    if (!request) {
+      return res.status(404).json({ message: "Request not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Request status updated",
+      request
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
