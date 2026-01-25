@@ -1,6 +1,11 @@
 /* ======================================================
-   BloodBridge - main.js (Popup-based errors)
+   BloodBridge - main.js (Backend Connected)
 ====================================================== */
+
+/* =========================
+   API CONFIG
+========================= */
+const API_BASE_URL = "http://localhost:5000/api";
 
 /* =========================
    POPUP ERROR SYSTEM
@@ -42,7 +47,6 @@ function showPopup(type, message, callback) {
     };
 }
 
-
 /* =========================
    HELPERS
 ========================= */
@@ -73,76 +77,114 @@ const AppState = {
 };
 
 /* =========================
-   SIGN IN (CLASS BASED)
+   SIGN IN
 ========================= */
 const signinForm = document.querySelector(".signin-form");
 
 if (signinForm) {
-    signinForm.addEventListener("submit", (e) => {
+    signinForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const data = getFormData(signinForm);
 
         if (!data.email || !data.password) {
-            showPopup("Please fill in all required fields.");
+            showPopup("error", "Please fill in all required fields.");
             return;
         }
 
         showLoader(signinForm);
 
-        setTimeout(() => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/auth/signin`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
             hideLoader(signinForm);
+
+            if (!res.ok) {
+                showPopup("error", result.message || "Login failed");
+                return;
+            }
+
+            localStorage.setItem("token", result.token);
             AppState.isLoggedIn = true;
+            AppState.userRole = result.user?.role || null;
 
             showPopup("success", "Sign in successful!", () => {
                 window.location.href = "Home.html";
             });
-        }, 1500);
 
+        } catch (err) {
+            hideLoader(signinForm);
+            showPopup("error", "Server not reachable. Try again.");
+        }
     });
 }
 
 /* =========================
-   SIGN UP (CLASS BASED)
+   SIGN UP
 ========================= */
 const signupForm = document.querySelector(".signup-form");
 
 if (signupForm) {
-    signupForm.addEventListener("submit", (e) => {
+    signupForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const data = getFormData(signupForm);
 
-        if (!data.name || !data.email || !data.role || !data.password || !data.confirmPassword) {
-            showPopup("All fields are mandatory. Please complete the form.");
+        if (!data.name || !data.email || !data.role || !data.password || !data.confirmpassword) {
+            showPopup("error", "All fields are mandatory.");
             return;
         }
 
         if (data.password.length < 6) {
-            showPopup("Password must be at least 6 characters long.");
+            showPopup("error", "Password must be at least 6 characters.");
             return;
         }
 
-        if (data.password !== data.confirmPassword) {
-            showPopup("Passwords do not match. Please try again.");
+        if (data.password !== data.confirmpassword) {
+            showPopup("error", "Passwords do not match.");
             return;
         }
 
         showLoader(signupForm);
 
-        setTimeout(() => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/auth/signup`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    role: data.role,
+                    password: data.password
+                })
+            });
+
+            const result = await res.json();
             hideLoader(signupForm);
+
+            if (!res.ok) {
+                showPopup("error", result.message || "Signup failed");
+                return;
+            }
 
             showPopup("success", "Account created successfully!", () => {
                 window.location.href = "signin.html";
             });
-        }, 1500);
 
+        } catch (err) {
+            hideLoader(signupForm);
+            showPopup("error", "Server not reachable. Try again.");
+        }
     });
 }
 
 /* =========================
-   NAVBAR
+   NAVBAR + LOGOUT
 ========================= */
 function updateNavbar() {
     document.querySelectorAll(".auth-link").forEach(link => {
@@ -156,6 +198,7 @@ function updateNavbar() {
 }
 
 function logoutUser() {
+    localStorage.removeItem("token");
     AppState.isLoggedIn = false;
     AppState.userRole = null;
     updateNavbar();
@@ -166,7 +209,7 @@ function logoutUser() {
    BACK BUTTON
 ========================= */
 function goBack() {
-    if (window.history.length >= 1) {
+    if (window.history.length > 1) {
         window.history.back();
     } else {
         window.location.href = "Home.html";
@@ -174,105 +217,44 @@ function goBack() {
 }
 
 /* =========================
-   NOTIFICATIONS
+   NOTIFICATIONS (STATIC FOR NOW)
 ========================= */
-const notifications = [
-    {
-        type: "urgent",
-        title: "Urgent Blood Required",
-        message: "O+ blood needed at City Hospital, Moradabad",
-        time: "Just now"
-    },
-    {
-        type: "match",
-        title: "Donor Matched",
-        message: "A donor has been matched for your request",
-        time: "10 minutes ago"
-    },
-    {
-        type: "info",
-        title: "Request Fulfilled",
-        message: "Your blood request has been completed",
-        time: "1 hour ago"
+
+async function fetchNotifications() {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+        const res = await fetch("http://localhost:5000/api/notifications", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            console.error("Failed to fetch notifications");
+            return;
+        }
+
+        renderNotifications(data.notifications || []);
+
+    } catch (error) {
+        console.error("Notification fetch error:", error.message);
     }
-];
-
-function renderNotifications() {
-    const container = document.querySelector(".notification-container");
-    const countEl = document.querySelector(".notification-count");
-
-    if (!container || !countEl) return;
-
-    container.innerHTML = "";
-    countEl.textContent = notifications.length;
-
-    notifications.forEach(n => {
-        const div = document.createElement("div");
-        div.className = `notification ${n.type}`;
-        div.innerHTML = `
-            <span class="tag">${n.type.toUpperCase()}</span>
-            <h3>${n.title}</h3>
-            <p>${n.message}</p>
-            <span class="time">${n.time}</span>
-        `;
-        container.appendChild(div);
-    });
 }
 
-/* =========================
-   INIT
-========================= */
-document.addEventListener("DOMContentLoaded", () => {
-    updateNavbar();
-    renderNotifications();
-});
 
-/* =========================
-   NOTIFICATIONS LOGIC
-========================= */
-
-// Temporary notification data (can come from backend later)
-const Notifications = [
-    {
-        type: "urgent",
-        tag: "Emergency",
-        title: "Urgent Blood Required",
-        message: `
-            <strong>Blood Group:</strong> O+ <br>
-            <strong>Location:</strong> City Hospital, Moradabad <br>
-            <strong>Units:</strong> 2
-        `,
-        time: "Just now"
-    },
-    {
-        type: "match",
-        tag: "Matched",
-        title: "Donor Matched",
-        message: "A suitable donor has been matched for your A− blood request.",
-        time: "5 minutes ago"
-    },
-    {
-        type: "info",
-        tag: "Update",
-        title: "Request Fulfilled",
-        message: "Your blood request has been successfully fulfilled.",
-        time: "1 hour ago"
-    }
-];
-
-// Render notifications
-function renderNotifications() {
+function renderNotifications(notifications) {
     const container = document.querySelector(".notification-container");
     const countEl = document.querySelector(".notification-count");
 
     if (!container || !countEl) return;
 
     container.innerHTML = "";
-
-    // Update count
     countEl.textContent = notifications.length;
 
-    // Empty state
     if (notifications.length === 0) {
         container.innerHTML = `
             <div class="notification empty">
@@ -283,18 +265,32 @@ function renderNotifications() {
         return;
     }
 
-    // Render each notification
-    notifications.forEach(notification => {
+    notifications.forEach(n => {
         const div = document.createElement("div");
-        div.className = `notification ${notification.type}`;
+        div.className = `notification ${n.type} ${n.isRead ? "read" : ""}`;
 
         div.innerHTML = `
-            <span class="tag">${notification.tag}</span>
-            <h3>${notification.title}</h3>
-            <p>${notification.message}</p>
-            <span class="time">${notification.time}</span>
+            <span class="tag">${n.type.toUpperCase()}</span>
+            <h3>${n.title}</h3>
+            <p>${n.message}</p>
+            <span class="time">${new Date(n.createdAt).toLocaleString()}</span>
         `;
+
+        // Mark as read when clicked
+        div.addEventListener("click", () => markAsRead(n._id));
 
         container.appendChild(div);
     });
 }
+
+
+/* =========================
+   INIT
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    AppState.isLoggedIn = !!token;
+    updateNavbar();
+    renderNotifications();
+    fetchNotifications();
+});

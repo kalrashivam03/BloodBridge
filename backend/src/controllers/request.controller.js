@@ -1,86 +1,144 @@
-import BloodRequest from "../models/BloodRequest.js";
+import Request from "../models/BloodRequest.js";
+import Donor from "../models/Donor.js";
 import { createNotification } from "./notification.controller.js";
+
+/* ======================================================
+   REQUEST CONTROLLER
+====================================================== */
 
 /* =========================
    CREATE BLOOD REQUEST
+   POST /api/requests
 ========================= */
 export const createRequest = async (req, res) => {
     try {
+        const userId = req.user.id;
         const {
-            patientName,
             bloodGroup,
-            units,
+            city,
             hospital,
-            urgency,
-            contactNumber
+            units,
+            urgency
         } = req.body;
 
-        const userId = req.user?.id;
-
         // 1️⃣ Validate input
-        if (
-            !patientName ||
-            !bloodGroup ||
-            !units ||
-            !hospital ||
-            !urgency ||
-            !contactNumber
-        ) {
+        if (!bloodGroup || !city || !hospital || !units) {
             return res.status(400).json({
                 success: false,
-                message: "All request fields are required"
+                message: "All required fields must be provided"
             });
         }
 
-        // 2️⃣ Create request
-        const request = await BloodRequest.create({
-            userId,
-            patientName,
+        // 2️⃣ Create blood request
+        const request = await Request.create({
+            user: userId,
             bloodGroup,
-            units,
+            city,
             hospital,
-            urgency,
-            contactNumber,
-            status: "open"
+            units,
+            urgency
         });
 
-        // 3️⃣ Notify requester
-        await createNotification({
-            userId,
-            title: "Blood Request Submitted",
-            message: `Your request for ${bloodGroup} blood has been created.`,
-            type: "info"
+        // 3️⃣ Find matching donors
+        const matchedDonors = await Donor.find({
+            bloodGroup,
+            city,
+            isAvailable: true
         });
+
+        // 4️⃣ Create notifications for matched donors
+        for (const donor of matchedDonors) {
+            await createNotification({
+                // 🔴 IMPORTANT:
+                // If your Donor model uses `user` instead of `userId`,
+                // change donor.userId → donor.user
+                userId: donor.user,
+                title: "Blood Match Found 🩸",
+                message: `Urgent ${bloodGroup} blood required at ${hospital}, ${city}`,
+                type: "match"
+            });
+        }
 
         return res.status(201).json({
             success: true,
-            message: "Blood request created successfully",
-            request
+            message: "Blood request created and donors notified",
+            request,
+            notifiedDonors: matchedDonors.length
+        });
+
+    } catch (error) {
+        console.error("Create Request Error:", error.message);
+        return res.status(500).json({
+            success: false,
+            message: "Failed to create blood request"
+        });
+    }
+};
+
+/* =========================
+   GET ALL REQUESTS
+   GET /api/requests
+========================= */
+export const getAllRequests = async (req, res) => {
+    try {
+        const requests = await Request.find()
+            .populate("user", "name email")
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success: true,
+            count: requests.length,
+            requests
         });
 
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Failed to create blood request",
-            error: error.message
+            message: "Failed to fetch requests"
+        });
+    }
+};
+
+/* =========================
+   GET MY REQUESTS
+   GET /api/requests/my
+========================= */
+export const getMyRequests = async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        const requests = await Request.find({ user: userId })
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success: true,
+            count: requests.length,
+            requests
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch your requests"
         });
     }
 };
 
 /* =========================
    GET REQUEST BY ID
+   GET /api/requests/:id
 ========================= */
 export const getRequestById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const request = await BloodRequest.findById(id)
-            .populate("userId", "name email");
+        const request = await Request.findById(id)
+            .populate("user", "name email");
 
         if (!request) {
             return res.status(404).json({
                 success: false,
-                message: "Blood request not found"
+                message: "Request not found"
             });
         }
 
@@ -92,58 +150,7 @@ export const getRequestById = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Failed to fetch request",
-            error: error.message
-        });
-    }
-};
-
-/* =========================
-   UPDATE REQUEST STATUS
-========================= */
-export const updateRequestStatus = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { status } = req.body;
-
-        const allowedStatus = ["open", "matched", "fulfilled"];
-        if (!allowedStatus.includes(status)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid request status"
-            });
-        }
-
-        const request = await BloodRequest.findById(id);
-        if (!request) {
-            return res.status(404).json({
-                success: false,
-                message: "Blood request not found"
-            });
-        }
-
-        request.status = status;
-        await request.save();
-
-        // Notify requester
-        await createNotification({
-            userId: request.userId,
-            title: "Request Status Updated",
-            message: `Your blood request is now marked as "${status}".`,
-            type: status === "fulfilled" ? "info" : "match"
-        });
-
-        return res.status(200).json({
-            success: true,
-            message: "Request status updated",
-            request
-        });
-
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Failed to update request status",
-            error: error.message
+            message: "Failed to fetch request"
         });
     }
 };

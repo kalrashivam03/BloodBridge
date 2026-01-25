@@ -1,8 +1,12 @@
 import Notification from "../models/Notification.js";
 
+/* ======================================================
+   NOTIFICATION CONTROLLER
+====================================================== */
+
 /* =========================
    CREATE NOTIFICATION
-   (Used internally by system)
+   (Internal use only)
 ========================= */
 export const createNotification = async ({
     userId,
@@ -11,6 +15,8 @@ export const createNotification = async ({
     type = "info"
 }) => {
     try {
+        if (!userId || !title || !message) return;
+
         await Notification.create({
             userId,
             title,
@@ -25,10 +31,11 @@ export const createNotification = async ({
 
 /* =========================
    GET USER NOTIFICATIONS
+   GET /api/notifications
 ========================= */
 export const getUserNotifications = async (req, res) => {
     try {
-        const userId = req.user?.id;
+        const userId = req.user.id;
 
         const notifications = await Notification.find({ userId })
             .sort({ createdAt: -1 });
@@ -38,22 +45,21 @@ export const getUserNotifications = async (req, res) => {
             count: notifications.length,
             notifications
         });
-
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Failed to fetch notifications",
-            error: error.message
+            message: "Failed to fetch notifications"
         });
     }
 };
 
 /* =========================
    MARK NOTIFICATION AS READ
+   PATCH /api/notifications/:id/read
 ========================= */
 export const markAsRead = async (req, res) => {
     try {
-        const userId = req.user?.id;
+        const userId = req.user.id;
         const { id } = req.params;
 
         const notification = await Notification.findOne({
@@ -75,12 +81,10 @@ export const markAsRead = async (req, res) => {
             success: true,
             message: "Notification marked as read"
         });
-
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Failed to update notification",
-            error: error.message
+            message: "Failed to update notification"
         });
     }
 };

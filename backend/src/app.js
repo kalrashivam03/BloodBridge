@@ -26,10 +26,10 @@ app.use(express.json());
    HEALTH CHECK
 ========================= */
 app.get("/", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "BloodBridge Backend is running 🚀"
-    });
+  res.status(200).json({
+    success: true,
+    message: "BloodBridge Backend is running 🚀",
+  });
 });
 
 /* =========================
@@ -44,10 +44,10 @@ app.use("/api/notifications", notificationRoutes);
    404 HANDLER
 ========================= */
 app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: "Route not found"
-    });
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  });
 });
 
 /* =========================

@@ -3,36 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | BloodBridge</title>
+    <title>Sign In | BloodBridge</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="auth-container2">
-    <div class="auth-card2">
+<div class="auth-container">
+    <div class="auth-card">
         <h1>Create Account</h1>
         <p class="subtitle">Join BloodBridge and help save lives</p>
 
-        <form class="signup-form">
-
-            <div class="name">
-                <label>Full Name</label>
-                <input type="text" name="name" placeholder="Your full name" required>
-            </div>
+        <form class="signin-form">
 
             <div class="email">
                 <label>Email Address</label>
                 <input type="email" name="email" placeholder="you@example.com" required>
-            </div>
-
-            <div class="user-role">
-                <label>Role</label>
-                <select name="role" required>
-                    <option value="">Select role</option>
-                    <option value="donor">Donor</option>
-                    <option value="patient">Patient</option>
-                    <option value="hospital">Hospital / Admin</option>
-                </select>
             </div>
 
             <div class="password">
@@ -40,20 +25,15 @@
                 <input type="password" name="password" placeholder="Create a password" required>
             </div>
 
-            <div class="confirmpassword">
-                <label>Confirm Password</label>
-                <input type="password" name="confirmPassword" placeholder="Confirm password" required>
-            </div>
-
             <!-- loader bar -->
             <div class="loader"></div>
 
-            <button type="submit" class="auth-btn">Sign Up</button>
+            <button type="submit" class="auth-btn">Sign In</button>
         </form>
 
         <p class="auth-switch">
-            Already have an account?
-            <a href="signin.html">Sign in</a>
+            Don't have an account?
+            <a href="signup.html">Sign up</a>
         </p>
     </div>
 </div>

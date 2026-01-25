@@ -12,9 +12,9 @@ const router = express.Router();
 ========================= */
 
 // Get all notifications for logged-in user
-router.get("/", authMiddleware, getUserNotifications);
+router.get("/", protect, getUserNotifications);
 
 // Mark a notification as read
-router.put("/:id/read", authMiddleware, markAsRead);
+router.put("/:id/read", protect, markAsRead);
 
 export default router;
