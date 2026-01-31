@@ -20,9 +20,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 40px;
+    padding: 20px 20px;
     background-color: #ffffff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    height: 60px;
 }
 
 /* ================= Right Nav ================= */
@@ -40,12 +41,13 @@ body {
 }
 
 .back-btn{
-    border: solid #d62828 2px;
-    background: linear-gradient(to right, #d62828, #f77f00);
+    border: solid #B11226 2px;
+    background: #B11226;
     padding: 5px 15px;
     border-radius: 5px;
-    font-size: 22px;
+    font-size: 15px;
     transition: all 0.3s ease-in-out;
+    font-weight: 500;
 }
 
 .back-btn:hover{
@@ -58,27 +60,26 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    /* gap: 10px; */
 }
 
 .logo img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     margin-top: 5px;
     margin-right: 3px;
 }
 
 .logo span {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 700;
 }
 
 .logo .blood {
-    color: #d62828; /* Red */
+    color: #B11226;
 }
 
 .logo .bridge {
-    color: #1b4bcf; /* Blue */
+    color: #1b4bcf;
 }
 
 .notification {
@@ -88,13 +89,13 @@ body {
 
 .notification-link {
     text-decoration: none;
-    font-size: 22px;
+    font-size: 15px;
     cursor: pointer;
     position: relative;
 }
 
 /* 🔔 Badge alignment fix */
-.notification .badge {
+/* .notification .badge {
     position: absolute;
     top: -6px;
     right: -6px;
@@ -110,73 +111,72 @@ body {
     align-items: center;
     justify-content: center;
     line-height: 1;
-}
-
-
+} */
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 30px;
+    gap: 20px;
 }
 
 .nav-links li {
     border: solid transparent 2px;
-    background: linear-gradient(to right, #d62828, #f77f00);
-    padding: 10px 15px;
+    background: #B11226;
+    padding: 5px 15px;
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
 }
 
 .nav-links a {
     text-decoration: none;
-    font-weight: 500;
-    color: #333;
-    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+    font-size: 15px;
 }
 
 .nav-links li:hover {
-    transform: scale(1.10);
+    transform: scale(1.15);
     transition: transform 0.3s;
     background: #ffffff;
-    border: solid #d62828 2px;
+    border: solid #B11226 2px;
 }
 
 .nav-links a:hover {
-    color: #d62828;
+    color: #000000;
 }
 
 /* ================== Hero Section ================== */
 .hero {
-    height: 85vh;
+    height: 500px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to right, #d62828, #f77f00);
+    background: #B11226;
     color: #ffffff;
     text-align: center;
     padding: 20px;
 }
 
 .hero-content {
-    max-width: 700px;
+    max-width: 800px;
 }
 
-.hero h1 {
-    font-size: 48px;
-    margin-bottom: 15px;
+.hero-content h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
 }
 
-.hero p {
-    font-size: 18px;
-    margin-bottom: 30px;
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 10px;
     line-height: 1.6;
 }
 
 .hero-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 25px;
 }
 
 /* ================== Buttons ================== */
@@ -184,29 +184,18 @@ body {
     padding: 12px 28px;
     border-radius: 25px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 50px;
 }
 
-.primary {
+.primary, .secondary {
     border: solid #ffffff 2px;
     color: #ffffff;
     transition: all 0.3s ease-in-out;
 }
 
-.primary:hover {
-    background-color: #ffffff;
-    color: #d62828;
-    transform: scale(1.10);
-    transition: transform 0.3s;
-}
-
-.secondary {
-    border: 2px solid #ffffff;
-    color: #ffffff;
-    transition: all 0.3s ease-in-out;
-}
-
-.secondary:hover {
+.primary:hover, .secondary:hover {
     background-color: #ffffff;
     color: #d62828;
     transform: scale(1.10);
@@ -215,13 +204,13 @@ body {
 
 /* ================== Features Section ================== */
 .features {
-    padding: 80px 60px;
+    padding: 60px 60px;
     background-color: #ffffff;
     text-align: center;
 }
 
 .features h2 {
-    font-size: 36px;
+    font-size: 50px;
     margin-bottom: 50px;
     color: #d62828;
 }
@@ -233,7 +222,7 @@ body {
 }
 
 .feature-card {
-    background-color: #f9f9f9;
+    background-color: #f0f0f0;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -246,18 +235,19 @@ body {
 
 .feature-card p {
     line-height: 1.6;
+    color: #000000;
 }
 
 /* ================== CTA Section ================== */
 .cta {
-    background-color: #d62828;
+    background-color: #B11226;
     color: #ffffff;
     text-align: center;
-    padding: 70px 20px;
+    padding: 50px 20px;
 }
 
 .cta h2 {
-    font-size: 36px;
+    font-size: 50px;
     margin-bottom: 15px;
 }
 
@@ -274,9 +264,8 @@ body {
 
 .ctaprime:hover{
     background-color: #ffffff;
-    color: #d62828;
+    color: #B11226;
     transform: scale(1.10);
-    transition: transform 0.3s;
 }
 
 /* ================== Footer ================== */
@@ -311,19 +300,20 @@ footer {
 
 .request-box h1 {
     text-align: center;
-    color: #d62828;
+    color: #B11226;
     margin-bottom: 10px;
 }
 
 .request-box p {
     text-align: center;
     margin-bottom: 30px;
-    color: #555;
+    color: #000000;
 }
 
 /* ================= Form ================= */
 .bloodgroup, .urgency-level, .patient-name, .patient-number, .patient-units, .patient-location {
     margin-bottom: 18px;
+    color: #B11226;
 }
 
 .bloodgroup label, .urgency-level label, .patient-name label, .patient-number label, .patient-units label, .patient-location label {
@@ -336,13 +326,14 @@ footer {
     width: 100%;
     padding: 10px 12px;
     border-radius: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid #B11226;
     font-size: 14px;
+    color: #B11226;
 }
 
 .patient-name input:focus, .patient-location input:focus, .patient-units input:focus, .patient-number input:focus, .urgency-level select:focus, .bloodgroup select:focus {
     outline: none;
-    border-color: #d62828;
+    border-color: #B11226;
 }
 
 /* ================= Button ================= */
@@ -351,18 +342,19 @@ footer {
     padding: 12px;
     border: none;
     border-radius: 25px;
-    border: solid #d62828 2px;
-    background-color: #ffffff;
-    color: #d62828;
+    border: solid #B11226 2px;
+    background-color: #B11226;
+    color: #ffffff;
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
     margin-top: 10px;
+    transition: all 0.3s ease-in-out;
 }
 
 .requestbtn:hover {
-    background-color: #d62828;
-    color:#ffffff;
+    background-color: #ffffff;
+    color:#B11226;
 }
 
 
@@ -881,7 +873,7 @@ footer {
 
 .donor-card h1 {
     text-align: center;
-    color: #d62828;
+    color: #B11226;
     margin-bottom: 10px;
 }
 
@@ -901,6 +893,7 @@ footer {
     display: block;
     margin-bottom: 6px;
     font-size: 14px;
+    color: #B11226;
 }
 
 .donor-form input,
@@ -908,32 +901,37 @@ footer {
     width: 100%;
     padding: 10px 12px;
     border-radius: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid #B11226;
     font-size: 14px;
     box-sizing: border-box;
+    color: #B11226;
 }
 
 .donor-form input:focus,
 .donor-form select:focus {
     outline: none;
-    border-color: #d62828;
+    border-color: #B11226;
 }
 
 /* Button */
 .donor-btn {
     width: 100%;
     padding: 12px;
-    background: #d62828;
+    background: #B11226;
     color: #fff;
     border: none;
     border-radius: 6px;
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
     margin-top: 10px;
+    transition: all 0.3s ease-in-out;
 }
 
 .donor-btn:hover {
-    background: #b81f1f;
+    background: #ffffff;
+    color: #B11226;
+    border: solid #B11226 2px;
 }
 
 
