@@ -7,9 +7,13 @@
 }
 
 body {
-    background-color: #f9f9f9;
-    color: #333;
+    background: #f7f8fa;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
+
 
 /* ======================================================
                     homepage
@@ -48,6 +52,7 @@ body {
     font-size: 15px;
     transition: all 0.3s ease-in-out;
     font-weight: 500;
+    color: #ffffff;
 }
 
 .back-btn:hover{
@@ -55,6 +60,7 @@ body {
     transition: transform 0.3s;
     background: #ffffff;
     border: solid #d62828 2px;
+    color: #000000;
 }
 
 .logo {
@@ -84,23 +90,33 @@ body {
 
 .notification {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    border: solid 2px #B11226;
+    padding: 0;
+    border-radius: 6px;
+    /* height: 8px;
+    width: 4px; */
 }
 
 .notification-link {
     text-decoration: none;
-    font-size: 15px;
+    font-size: 14px;
+    line-height: 0.9;
+    padding: 0;
+    display: inline-flex;
     cursor: pointer;
     position: relative;
 }
 
 /* 🔔 Badge alignment fix */
-/* .notification .badge {
+.notification .badge {
     position: absolute;
     top: -6px;
     right: -6px;
-    min-width: 16px;
-    height: 16px;
+    min-width: 10px;
+    height: 10px;
     padding: 0 4px;
     background: #d62828;
     color: #fff;
@@ -111,7 +127,7 @@ body {
     align-items: center;
     justify-content: center;
     line-height: 1;
-} */
+}
 
 .nav-links {
     list-style: none;
@@ -130,7 +146,7 @@ body {
 .nav-links a {
     text-decoration: none;
     font-weight: 600;
-    color: #000000;
+    color: #ffffff;
     font-size: 15px;
 }
 
@@ -139,6 +155,7 @@ body {
     transition: transform 0.3s;
     background: #ffffff;
     border: solid #B11226 2px;
+    /* color: #000000; */
 }
 
 .nav-links a:hover {
@@ -523,103 +540,106 @@ footer {
 }
 
 
-/*=============================================
-            notification section
-=============================================== */
-
+/* =============================================
+   Notification Section
+============================================= */
 /* ================= Header ================= */
 .header {
-    background: linear-gradient(135deg, #d62828, #9b1c1c);
-    padding: 35px 20px 30px;
-    display: flex;
-    align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+    padding: 5px 15px;
+    height: 80px;
 }
 
-.header-content {
-    max-width: 900px;
-    margin: auto;
+.header-top {
+    width: 100%;
+    padding: 10px 25px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     gap: 20px;
 }
 
-.left-header{
+.left-header {
     display: flex;
-    gap:30px;
-    margin-left: 10px;
+    align-items: center;
+    gap: 15px;
 }
+
 .header h1 {
-    font-size: 30px;
-    margin: 0;
-}
-
-.header p{
-    color: #ffffff;
-    font-size: 20px;
-    margin-top: 25px;
-    margin-left: 580px;
-}
-.subtitle {
-    max-width: 900px;
-    margin: 8px auto 0;
-    font-size: 20px;
-    opacity: 0.9;
-    justify-content: right;
-}
-
-
-.back-btn2 {
-    border: solid #ffffff 2px;
-    background: #f68686;
-    padding: 10px 25px;
-    border-radius: 25px;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
-    transition: all 0.3s ease-in-out;
+}
+
+.subtitle {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    color: #000000;
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+/* ================= Back Button ================= */
+.back-btn2 {
+    border: 2px solid #B11226;
+    background: #B11226;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
 }
 
 .back-btn2:hover {
-    transform: scale(1.10);
-    transition: 0.3s;
+    background: #ffffff;
+    color: #B11226;
+    transform: scale(1.05);
 }
 
 /* ================= Notification Count ================= */
 .count {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 6px 14px;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #f1f1f1;
     border-radius: 20px;
-    font-size: 14px;
-    white-space: nowrap;
+    font-size: 13px;
 }
 
 .dot {
     width: 8px;
     height: 8px;
-    background: #00ff9c;
+    background: #00c896;
     border-radius: 50%;
 }
 
 /* ================= Container ================= */
-.container {
-    max-width: 900px;
-    height: 450px;
-    margin: 40px auto;
-    padding: 10px 20px;
+.noti-card {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+
+.notification-container {
     display: flex;
+    flex-direction: column;
     gap: 20px;
 }
 
 /* ================= Notification Card ================= */
 .notification {
-    background: #fff;
+    background: #ffffff;
     padding: 22px;
     border-radius: 12px;
-    margin-bottom: 22px;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
     position: relative;
     border-left: 6px solid #ccc;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -646,9 +666,9 @@ footer {
 /* ================= Tag ================= */
 .tag {
     position: absolute;
-    top: 18px;
-    right: 18px;
-    font-size: 12px;
+    top: 16px;
+    right: 16px;
+    font-size: 11px;
     padding: 4px 10px;
     border-radius: 20px;
     background: #eee;
@@ -672,19 +692,19 @@ footer {
 
 /* ================= Content ================= */
 .notification h3 {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-size: 18px;
 }
 
 .notification p {
-    font-size: 14.5px;
+    font-size: 14px;
     color: #555;
-    line-height: 1.55;
+    line-height: 1.6;
 }
 
 .time {
     display: block;
-    margin-top: 12px;
+    margin-top: 10px;
     font-size: 12px;
     color: #888;
 }
@@ -698,13 +718,24 @@ footer {
 
 .notification.empty h3 {
     font-size: 18px;
-    color: #333;
+    margin-bottom: 6px;
 }
 
 .notification.empty p {
     font-size: 14px;
     color: #777;
 }
+
+/* ================= Footer ================= */
+.notification-footer {
+    background: #111;
+    color: #aaa;
+    text-align: center;
+    padding: 15px;
+    font-size: 13px;
+}
+
+
 
 /* ====================================
                 auth page

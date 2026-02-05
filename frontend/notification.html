@@ -3,40 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications | BloodBridge</title>
+    <title>Notifications|BloodBridge</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <!-- ================= Header ================= -->
     <header class="header">
+    <div class="header-top">
+        <!-- LEFT -->
         <div class="left-header">
-            <button type="button" class="back-btn2" onclick="goBack()">← Back</button>
-            <div class="header-content">
-                <h1>Notifications</h1>
-                <div class="count">
-                    <span class="dot"></span>
-                    <span class="notification-count">0</span> New
-                </div>
-            </div>
+            <button class="back-btn2" onclick="goBack()">← Back</button>
+            <h1>Notifications</h1>
         </div>
+        <!-- CENTER -->
         <p class="subtitle">
             Live updates for blood requests and donor matches
         </p>
+        <!-- RIGHT -->
+        <div class="count">
+            <span class="dot"></span>
+            <span class="notification-count">0</span> New
+        </div>
+    </div>
     </header>
 
-    <!-- ================= Notifications ================= -->
-    <main class="container">
 
-        <!-- JS will inject notifications here -->
+    <!-- ================= Notifications ================= -->
+    <main class="noti-card">
         <div class="notification-container">
-            <!-- Dynamic notifications -->
+            <!-- JS will inject notifications here -->
+
+            <!-- Example Empty State -->
+            <!--
+            <div class="notification empty">
+                <h3>No notifications</h3>
+                <p>You’re all caught up for now.</p>
+            </div>
+            -->
         </div>
     </main>
 
     <!-- ================= Footer ================= -->
-    <footer class="footer">
-        <p>© 2026 BloodBridge | Notification Center</p>
+    <footer class="notification-footer">
+        © 2026 BloodBridge | Notification Center
     </footer>
 
     <script src="main.js"></script>
